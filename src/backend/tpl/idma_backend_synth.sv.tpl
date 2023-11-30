@@ -357,7 +357,6 @@ ${p}_${database[p]['write_meta_channel']}_width\
     assign idma_req.opt.src_protocol       = req_src_protocol_i;
     assign idma_req.opt.dst_protocol       = req_dst_protocol_i;
     assign idma_req.opt.axi_id             = req_axi_id_i;
-    assign idma_req.opt.dst_protocol       = req_dst_protocol;
     assign idma_req.opt.dst.cache          = req_dst_cache_i;
     assign idma_req.opt.dst.burst          = req_dst_burst_i;
     assign idma_req.opt.dst.qos            = req_dst_qos_i;
