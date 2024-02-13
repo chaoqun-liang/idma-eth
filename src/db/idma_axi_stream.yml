@@ -123,14 +123,14 @@ write_bridge_template: |
     obi_req_t axi_stream_obi_write_req;
     obi_rsp_t axi_stream_obi_write_rsp;
 
-    assign axi_stream_obi_write_req.a_req   = axis_write_req.tvalid;
+    assign axi_stream_obi_write_req.a_req   = axi_stream_write_req.tvalid;
     assign axi_stream_obi_write_req.a.we    = 1'b1;
-    assign axi_stream_obi_write_req.a.wdata = axis_write_req.t.data;
-    assign axi_stream_obi_write_req.a.be    = axis_write_req.t.keep;
-    assign axi_stream_obi_write_req.a.aid   = axis_write_req.t.id;
+    assign axi_stream_obi_write_req.a.wdata = axi_stream_write_req.t.data;
+    assign axi_stream_obi_write_req.a.be    = axi_stream_write_req.t.keep;
+    assign axi_stream_obi_write_req.a.aid   = axi_stream_write_req.t.id;
     assign axi_stream_obi_write_req.r_ready = 1'b1;
 
-    assign axis_write_rsp.tready = axi_stream_obi_write_rsp.a_gnt;
+    assign axi_stream_write_rsp.tready = axi_stream_obi_write_rsp.a_gnt;
 
     initial begin
         string job_file;
@@ -171,12 +171,12 @@ write_bridge_template: |
             axi_stream_obi_write_req.a.addr = address;
 
             // Wait for first write
-            wait(axis_write_req.tvalid);
+            wait(axi_stream_write_req.tvalid);
             next_job = 1'b0;
             while(!next_job) begin
                 @(posedge clk);
-                if(axis_write_req.tvalid && axis_write_rsp.tready) begin
-                    next_job = axis_write_req.t.last;
+                if(axi_stream_write_req.tvalid && axi_stream_write_rsp.tready) begin
+                    next_job = axi_stream_write_req.t.last;
 
                     // Increment address
                     address += StrbWidth;

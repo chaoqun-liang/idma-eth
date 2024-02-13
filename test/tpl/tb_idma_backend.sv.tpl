@@ -1087,7 +1087,7 @@ axi_rsp_mem       )
             case(now.dst_protocol)
     % for protocol in used_write_protocols:
         idma_pkg::${database[protocol]['protocol_enum']}:
-        % if (protocol == 'axi') or (protocol == 'obi') or (protocol == 'axis') or (protocol == 'init'):
+        % if (protocol == 'axi') or (protocol == 'obi') or (protocol == 'axi_stream') or (protocol == 'init'):
                 id = now.id;
         % elif protocol == 'axi_lite':
                 id = now.id[2:0];
