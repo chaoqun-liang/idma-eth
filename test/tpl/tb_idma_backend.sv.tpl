@@ -92,7 +92,7 @@ module tb_idma_backend_${name_uniqueifier} import idma_pkg::*; #(
 
     // ${database['axi']['full_name']} typedefs
 ${database['axi']['typedefs']}
-% if ('obi' in used_protocols) or ('axi_stream' in used_protocols):
+% if ('obi' in used_protocols) or ('axis' in used_protocols):
     // ${database['obi']['full_name']} typedefs
 ${database['obi']['typedefs']}
 % endif
@@ -245,8 +245,8 @@ ${p}_${database[p]['write_meta_channel']}_width\
     % else:
         % if protocol in used_read_protocols:
             % if database[protocol]['read_slave'] == 'true':
-    ${protocol}_req_t ${protocol}_read_req;
-    ${protocol}_rsp_t ${protocol}_read_rsp;
+    ${protocol}_req_t  ${protocol}_read_req;
+    ${protocol}_rsp_t  ${protocol}_read_rsp;
             % else:
     ${protocol}_req_t ${protocol}_read_req;
     ${protocol}_rsp_t ${protocol}_read_rsp;
@@ -1086,8 +1086,8 @@ axi_rsp_mem       )
             // Check if corresponding writes went through
             case(now.dst_protocol)
     % for protocol in used_write_protocols:
-            idma_pkg::${database[protocol]['protocol_enum']}:
-        % if (protocol == 'axi') or (protocol == 'axi_stream') or (protocol == 'obi') or (protocol == 'init'):
+        idma_pkg::${database[protocol]['protocol_enum']}:
+        % if (protocol == 'axi') or (protocol == 'obi') or (protocol == 'axis') or (protocol == 'init'):
                 id = now.id;
         % elif protocol == 'axi_lite':
                 id = now.id[2:0];
